@@ -1,17 +1,14 @@
 import { randomBytes, randomUUID } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
-import { dirname, isAbsolute, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { basename, dirname, isAbsolute, join, resolve } from "node:path";
 import type { Answer, Participant, PublicSession, Question, Session } from "./types.js";
 
 const sessions = new Map<string, Session>();
-const moduleDirectory = dirname(fileURLToPath(import.meta.url));
-const defaultDatabasePath = resolve(moduleDirectory, "../data/database.json");
 const databasePath = process.env.DATABASE_FILE
   ? isAbsolute(process.env.DATABASE_FILE)
     ? process.env.DATABASE_FILE
     : join(process.cwd(), process.env.DATABASE_FILE)
-  : defaultDatabasePath;
+  : resolve(process.cwd(), basename(process.cwd()) === "server" ? "data/database.json" : "server/data/database.json");
 
 type Database = {
   sessions: Session[];

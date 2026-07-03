@@ -5,3 +5,4 @@ dist/
 *.log
 server/data/*.json
 server/data/*.tmp
+.azure-deploy/
