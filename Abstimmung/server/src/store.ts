@@ -1,7 +1,48 @@
 import { randomBytes, randomUUID } from "node:crypto";
+import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { dirname, isAbsolute, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import type { Answer, Participant, PublicSession, Question, Session } from "./types.js";
 
 const sessions = new Map<string, Session>();
+const moduleDirectory = dirname(fileURLToPath(import.meta.url));
+const defaultDatabasePath = resolve(moduleDirectory, "../data/database.json");
+const databasePath = process.env.DATABASE_FILE
+  ? isAbsolute(process.env.DATABASE_FILE)
+    ? process.env.DATABASE_FILE
+    : join(process.cwd(), process.env.DATABASE_FILE)
+  : defaultDatabasePath;
+
+type Database = {
+  sessions: Session[];
+};
+
+function loadDatabase(): void {
+  if (!existsSync(databasePath)) {
+    persistDatabase();
+    return;
+  }
+
+  const rawDatabase = readFileSync(databasePath, "utf8").trim();
+  if (!rawDatabase) {
+    return;
+  }
+
+  const database = JSON.parse(rawDatabase) as Database;
+  for (const session of database.sessions ?? []) {
+    sessions.set(session.code, session);
+  }
+}
+
+function persistDatabase(): void {
+  mkdirSync(dirname(databasePath), { recursive: true });
+  const database: Database = {
+    sessions: [...sessions.values()].sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+  };
+  const tempPath = `${databasePath}.tmp`;
+  writeFileSync(tempPath, `${JSON.stringify(database, null, 2)}\n`, "utf8");
+  renameSync(tempPath, databasePath);
+}
 
 function createCode(): string {
   let code = "";
@@ -36,6 +77,7 @@ export function createSession(input: {
   };
 
   sessions.set(session.code, session);
+  persistDatabase();
   return session;
 }
 
@@ -61,6 +103,7 @@ export function joinSession(session: Session, name: string): Participant {
     joinedAt: new Date().toISOString()
   };
   session.participants.push(participant);
+  persistDatabase();
   return participant;
 }
 
@@ -87,10 +130,12 @@ export function submitAnswers(session: Session, participantId: string, answers: 
 
   session.answers = session.answers.filter((answer) => answer.participantId !== participantId);
   session.answers.push(...sanitizedAnswers);
+  persistDatabase();
 }
 
 export function revealSession(session: Session): void {
   session.isRevealed = true;
+  persistDatabase();
 }
 
 export function getResults(session: Session) {
@@ -138,3 +183,12 @@ export function getResults(session: Session) {
     quizScores
   };
 }
+
+export function getDatabaseInfo() {
+  return {
+    path: databasePath,
+    sessionCount: sessions.size
+  };
+}
+
+loadDatabase();
