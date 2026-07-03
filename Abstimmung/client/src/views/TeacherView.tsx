@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 import { ResultsView } from "../components/cards/ResultsView";
 import { Metric } from "../components/common/Metric";
-import { createSession, getResults, getSession, listSessions, revealResults } from "../services/api";
+import { createSession, deleteSession, getResults, getSession, listSessions, revealResults } from "../services/api";
 import { type DraftQuestion, starterQuestions } from "../stores/starterQuestions";
 import type { ActivityType, PublicSession, Results } from "../types";
 import { getJoinUrl } from "../utils/sessionLinks";
@@ -48,10 +48,10 @@ export function TeacherView() {
     setQuestions((current) => current.map((question, itemIndex) => (itemIndex === index ? { ...question, ...patch } : question)));
   }
 
-  function changeActivityType(nextType: ActivityType) {
+  function startNewActivity(nextType: ActivityType) {
     setActivityType(nextType);
     setQuestions(starterQuestions[nextType]);
-    setTitle(nextType === "quiz" ? "Kurzquiz" : "Exit Ticket");
+    setTitle(nextType === "quiz" ? "Neues Quiz" : "Neue Abstimmung");
     setSession(null);
     setResults(null);
     setQrCode("");
@@ -93,6 +93,26 @@ export function TeacherView() {
     setMessage(`${savedSession.type === "quiz" ? "Quiz" : "Abstimmung"} "${savedSession.title}" wurde geladen.`);
   }
 
+  async function handleDeleteSavedSession(savedSession: PublicSession) {
+    const confirmed = window.confirm(`"${savedSession.title}" wirklich löschen?`);
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      await deleteSession(savedSession.code);
+      if (session?.code === savedSession.code) {
+        setSession(null);
+        setResults(null);
+        setQrCode("");
+      }
+      await refreshSavedSessions();
+      setMessage(`${savedSession.type === "quiz" ? "Quiz" : "Abstimmung"} "${savedSession.title}" wurde gelöscht.`);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Der Eintrag konnte nicht gelöscht werden.");
+    }
+  }
+
   async function handleCreate() {
     setMessage("");
     const payload = questions.map((question) => ({
@@ -128,13 +148,22 @@ export function TeacherView() {
             <h2>Aktivität vorbereiten</h2>
           </div>
           <div className="segmented">
-            <button type="button" className={activityType === "poll" ? "active" : ""} onClick={() => changeActivityType("poll")}>
+            <button type="button" className={activityType === "poll" ? "active" : ""} onClick={() => startNewActivity("poll")}>
               Abstimmung
             </button>
-            <button type="button" className={activityType === "quiz" ? "active" : ""} onClick={() => changeActivityType("quiz")}>
+            <button type="button" className={activityType === "quiz" ? "active" : ""} onClick={() => startNewActivity("quiz")}>
               Quiz
             </button>
           </div>
+        </div>
+
+        <div className="new-activity-actions">
+          <button type="button" className="secondary" onClick={() => startNewActivity("poll")}>
+            Neue Abstimmung erstellen
+          </button>
+          <button type="button" className="secondary" onClick={() => startNewActivity("quiz")}>
+            Neues Quiz erstellen
+          </button>
         </div>
 
         <label className="field">
@@ -155,13 +184,18 @@ export function TeacherView() {
             </div>
             <div className="saved-list">
               {savedSessions.map((savedSession) => (
-                <button type="button" className="saved-item" key={savedSession.id} onClick={() => loadSavedSession(savedSession)}>
-                  <span>{savedSession.type === "quiz" ? "Quiz" : "Abstimmung"}</span>
-                  <strong>{savedSession.title}</strong>
-                  <small>
-                    {savedSession.questions.length} Fragen · Code {savedSession.code}
-                  </small>
-                </button>
+                <div className="saved-item" key={savedSession.id}>
+                  <button type="button" className="saved-load" onClick={() => loadSavedSession(savedSession)}>
+                    <span>{savedSession.type === "quiz" ? "Quiz" : "Abstimmung"}</span>
+                    <strong>{savedSession.title}</strong>
+                    <small>
+                      {savedSession.questions.length} Fragen · Code {savedSession.code}
+                    </small>
+                  </button>
+                  <button type="button" className="danger compact-button" onClick={() => handleDeleteSavedSession(savedSession)}>
+                    Löschen
+                  </button>
+                </div>
               ))}
             </div>
           </section>
@@ -203,7 +237,7 @@ export function TeacherView() {
             Speichern und QR-Code erzeugen
           </button>
         </div>
-        {message && <p className={message.includes("geladen") ? "success" : "error"}>{message}</p>}
+        {message && <p className={message.includes("geladen") || message.includes("gelöscht") ? "success" : "error"}>{message}</p>}
       </form>
 
       <aside className="panel session-panel">

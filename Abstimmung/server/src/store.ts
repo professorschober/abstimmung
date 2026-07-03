@@ -85,6 +85,14 @@ export function getSession(code: string): Session | undefined {
   return sessions.get(code.toUpperCase());
 }
 
+export function deleteSession(code: string): boolean {
+  const deleted = sessions.delete(code.toUpperCase());
+  if (deleted) {
+    persistDatabase();
+  }
+  return deleted;
+}
+
 export function listSessions(): Session[] {
   return [...sessions.values()].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }

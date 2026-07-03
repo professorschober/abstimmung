@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import {
   createSession,
+  deleteSession,
   getDatabaseInfo,
   getResults,
   getSession,
@@ -57,6 +58,15 @@ app.get("/api/sessions/:code", (request, response) => {
     return;
   }
   response.json(toPublicSession(session));
+});
+
+app.delete("/api/sessions/:code", (request, response) => {
+  const deleted = deleteSession(request.params.code);
+  if (!deleted) {
+    response.status(404).json({ error: "Session not found" });
+    return;
+  }
+  response.status(204).send();
 });
 
 app.post("/api/sessions/:code/join", (request, response) => {

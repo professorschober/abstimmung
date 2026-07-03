@@ -187,6 +187,13 @@ select:focus {
   background: linear-gradient(135deg, #fffaf2, #fff7ed);
 }
 
+.new-activity-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
 .saved-library {
   display: grid;
   gap: 12px;
@@ -216,13 +223,24 @@ select:focus {
 
 .saved-item {
   display: grid;
-  gap: 3px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
   width: 100%;
   padding: 12px;
   border: 1px solid rgba(194, 65, 12, 0.22);
   border-radius: 8px;
   color: #24130f;
   background: #fffaf2;
+}
+
+.saved-load {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  padding: 0;
+  color: inherit;
+  background: transparent;
   text-align: left;
 }
 
@@ -274,6 +292,15 @@ select:focus {
   color: #9f1239;
   background: #fef3c7;
   border: 1px solid rgba(245, 158, 11, 0.38);
+}
+
+.danger {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 8px;
+  color: #fff;
+  background: #b91c1c;
+  font-weight: 850;
 }
 
 .wide {
@@ -523,6 +550,11 @@ select:focus {
   }
 
   .metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .new-activity-actions,
+  .saved-item {
     grid-template-columns: 1fr;
   }
 }

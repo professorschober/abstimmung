@@ -20,6 +20,10 @@ async function request<T>(url: string, init?: RequestInit): Promise<T> {
     throw new Error(payload.error ?? "Server request failed");
   }
 
+  if (response.status === 204) {
+    return undefined as T;
+  }
+
   return response.json() as Promise<T>;
 }
 
@@ -40,6 +44,12 @@ export function listSessions(): Promise<PublicSession[]> {
 
 export function getSession(code: string): Promise<PublicSession> {
   return request<PublicSession>(`/api/sessions/${encodeURIComponent(code)}`);
+}
+
+export async function deleteSession(code: string): Promise<void> {
+  await request<void>(`/api/sessions/${encodeURIComponent(code)}`, {
+    method: "DELETE"
+  });
 }
 
 export function joinSession(code: string, name: string): Promise<{ id: string; name: string; joinedAt: string }> {
