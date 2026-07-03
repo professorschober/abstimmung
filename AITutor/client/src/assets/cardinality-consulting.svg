@@ -1,0 +1,52 @@
+<svg width="760" height="520" viewBox="0 0 760 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="760" height="520" rx="24" fill="#FBFBFC"/>
+  <ellipse cx="385" cy="342" rx="150" ry="22" fill="#D8DDE3"/>
+  <path d="M154 207C154 138.755 209.327 83 277.5 83H420C538.189 83 634 178.811 634 297V301C634 314.807 622.807 326 609 326C595.193 326 584 314.807 584 301V297C584 206.425 510.575 133 420 133H277.5C236.941 133 204 165.941 204 206.5C204 247.059 236.941 280 277.5 280H484V330H277.5C181.712 330 104 252.288 104 156.5V154C104 140.193 115.193 129 129 129C142.807 129 154 140.193 154 154V207Z" fill="url(#paint0_linear_cardinality)"/>
+  <path d="M258 87C258 69.3269 272.327 55 290 55H428C445.673 55 460 69.3269 460 87V140C460 157.673 445.673 172 428 172H290C272.327 172 258 157.673 258 140V87Z" fill="url(#paint1_linear_cardinality)"/>
+  <path d="M258 172H460V220C460 237.673 445.673 252 428 252H290C272.327 252 258 237.673 258 220V172Z" fill="url(#paint2_linear_cardinality)"/>
+  <path d="M258 252H460V302C460 319.673 445.673 334 428 334H290C272.327 334 258 319.673 258 302V252Z" fill="url(#paint3_linear_cardinality)"/>
+  <path d="M282 165C282 156.163 289.163 149 298 149H420C428.837 149 436 156.163 436 165C436 173.837 428.837 181 420 181H298C289.163 181 282 173.837 282 165Z" fill="white"/>
+  <path d="M282 245C282 236.163 289.163 229 298 229H420C428.837 229 436 236.163 436 245C436 253.837 428.837 261 420 261H298C289.163 261 282 253.837 282 245Z" fill="white"/>
+  <circle cx="198" cy="172" r="28" fill="url(#paint4_radial_cardinality)"/>
+  <circle cx="521" cy="286" r="28" fill="url(#paint5_radial_cardinality)"/>
+  <circle cx="558" cy="86" r="28" fill="url(#paint6_radial_cardinality)"/>
+  <path d="M550 116L522 138" stroke="#D61F26" stroke-width="8" stroke-linecap="round"/>
+  <path d="M226 161L254 148" stroke="#1572A8" stroke-width="8" stroke-linecap="round"/>
+  <text x="72" y="425" fill="#13295B" font-family="Segoe UI, Arial, sans-serif" font-size="92" font-weight="700">
+    Cardinality
+  </text>
+  <text x="152" y="488" fill="#20B5C0" font-family="Segoe UI, Arial, sans-serif" font-size="48" font-weight="500" letter-spacing="14">
+    CONSULTING
+  </text>
+  <defs>
+    <linearGradient id="paint0_linear_cardinality" x1="113" y1="160" x2="611" y2="322" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#14255D"/>
+      <stop offset="0.62" stop-color="#1B77BE"/>
+      <stop offset="1" stop-color="#20B5C0"/>
+    </linearGradient>
+    <linearGradient id="paint1_linear_cardinality" x1="258" y1="55" x2="460" y2="172" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#13295B"/>
+      <stop offset="1" stop-color="#176FBB"/>
+    </linearGradient>
+    <linearGradient id="paint2_linear_cardinality" x1="258" y1="172" x2="460" y2="252" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#14346E"/>
+      <stop offset="1" stop-color="#22B7C0"/>
+    </linearGradient>
+    <linearGradient id="paint3_linear_cardinality" x1="258" y1="252" x2="460" y2="334" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#15558D"/>
+      <stop offset="1" stop-color="#22B7C0"/>
+    </linearGradient>
+    <radialGradient id="paint4_radial_cardinality" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(188 162) rotate(45) scale(42)">
+      <stop stop-color="#FFF5B0"/>
+      <stop offset="1" stop-color="#FFAA00"/>
+    </radialGradient>
+    <radialGradient id="paint5_radial_cardinality" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(511 276) rotate(45) scale(42)">
+      <stop stop-color="#EDFFC7"/>
+      <stop offset="1" stop-color="#3CBF36"/>
+    </radialGradient>
+    <radialGradient id="paint6_radial_cardinality" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(548 76) rotate(45) scale(42)">
+      <stop stop-color="#FFC0C0"/>
+      <stop offset="1" stop-color="#DF1B24"/>
+    </radialGradient>
+  </defs>
+</svg>

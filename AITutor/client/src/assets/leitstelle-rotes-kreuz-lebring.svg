@@ -1,0 +1,14 @@
+<svg width="320" height="120" viewBox="0 0 320 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="1.5" y="1.5" width="317" height="117" rx="22.5" fill="white" stroke="#E3E7EB" stroke-width="3"/>
+  <rect x="28" y="24" width="56" height="72" rx="18" fill="#FFF3F3"/>
+  <path d="M48 38C48 34.6863 50.6863 32 54 32H58C61.3137 32 64 34.6863 64 38V50H76C79.3137 50 82 52.6863 82 56V60C82 63.3137 79.3137 66 76 66H64V78C64 81.3137 61.3137 84 58 84H54C50.6863 84 48 81.3137 48 78V66H36C32.6863 66 30 63.3137 30 60V56C30 52.6863 32.6863 50 36 50H48V38Z" fill="#D61F26"/>
+  <text x="102" y="47" fill="#15202B" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700">
+    Leitstelle
+  </text>
+  <text x="102" y="69" fill="#D61F26" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="800">
+    Rotes Kreuz
+  </text>
+  <text x="102" y="91" fill="#4E5D69" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="600">
+    Lebring
+  </text>
+</svg>

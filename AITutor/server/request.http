@@ -1,0 +1,25 @@
+### Health-Check
+GET https://erd-tutor-ghgrcvd3ehgjfvd6.westeurope-01.azurewebsites.net/api/health
+
+###
+POST https://erd-tutor-ghgrcvd3ehgjfvd6.westeurope-01.azurewebsites.net/api/chat
+Content-Type: application/json
+
+{
+  "persona": "retter",
+  "message": "Welche Aufgaben haben Sie im Roten Kreuz Lebring?",
+  "history": []
+}
+
+### Health-Check lokal
+GET http://localhost:3001/api/health
+
+### Chat-Request lokal
+POST http://localhost:3001/api/chat
+Content-Type: application/json
+
+{
+  "persona": "retter",
+  "message": "Welche Aufgaben haben Sie im Roten Kreuz Lebring?",
+  "history": []
+}
