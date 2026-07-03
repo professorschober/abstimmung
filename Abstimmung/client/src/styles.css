@@ -1,0 +1,455 @@
+:root {
+  color: #172033;
+  background: #f7f8fb;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(15, 118, 110, 0.08), transparent 34%),
+    linear-gradient(315deg, rgba(245, 158, 11, 0.12), transparent 28%),
+    #f7f8fb;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+.app-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0 40px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.topbar h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+.topbar h1 {
+  font-size: clamp(2rem, 4vw, 4rem);
+  letter-spacing: 0;
+}
+
+.eyebrow {
+  color: #0f766e;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mode-switch,
+.segmented {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid #d7dde8;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.mode-switch button,
+.segmented button {
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 6px;
+  color: #475569;
+  background: transparent;
+  font-weight: 700;
+}
+
+.mode-switch button.active,
+.segmented button.active {
+  color: #fff;
+  background: #0f766e;
+}
+
+.teacher-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.85fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.student-layout {
+  display: grid;
+  place-items: start center;
+}
+
+.panel {
+  border: 1px solid #dce2ea;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 16px 50px rgba(15, 23, 42, 0.08);
+}
+
+.editor,
+.session-panel,
+.student-card {
+  padding: 22px;
+}
+
+.student-card {
+  width: min(640px, 100%);
+}
+
+.section-title {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.section-title h2,
+.student-card h2 {
+  margin-top: 3px;
+  color: #111827;
+  font-size: 1.45rem;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+  margin-bottom: 14px;
+  color: #334155;
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.field.compact {
+  max-width: 320px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  padding: 11px 12px;
+  color: #111827;
+  background: #fff;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 3px solid rgba(15, 118, 110, 0.18);
+  border-color: #0f766e;
+}
+
+.question-editor {
+  margin: 16px 0;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fbfdff;
+}
+
+.actions,
+.join-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: end;
+}
+
+.join-form .field {
+  flex: 1 1 220px;
+}
+
+.primary,
+.secondary {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-weight: 800;
+}
+
+.primary {
+  color: #fff;
+  background: #0f766e;
+}
+
+.secondary {
+  color: #0f766e;
+  background: #e6fffb;
+}
+
+.wide {
+  width: 100%;
+}
+
+.qr-box {
+  display: grid;
+  place-items: center;
+  min-height: 286px;
+  border: 1px dashed #b8c5d6;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.qr-box img {
+  width: min(256px, 100%);
+  height: auto;
+}
+
+.join-url {
+  margin: 12px 0 16px;
+  overflow-wrap: anywhere;
+  color: #475569;
+  font-weight: 700;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.metric {
+  padding: 12px;
+  border-radius: 8px;
+  background: #f1f5f9;
+}
+
+.metric span {
+  display: block;
+  color: #64748b;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.metric strong {
+  display: block;
+  margin-top: 4px;
+  color: #111827;
+  font-size: 1.25rem;
+}
+
+.empty-state {
+  display: grid;
+  gap: 8px;
+  min-height: 260px;
+  align-content: center;
+  color: #475569;
+}
+
+.answer-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.answer-question {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.answer-question legend {
+  margin-bottom: 10px;
+  color: #111827;
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.answer-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  padding: 12px;
+  border: 1px solid #dce2ea;
+  border-radius: 8px;
+  background: #fff;
+  font-weight: 750;
+}
+
+.answer-option input {
+  width: 18px;
+  height: 18px;
+}
+
+.results {
+  display: grid;
+  gap: 16px;
+}
+
+.results h3 {
+  font-size: 1.2rem;
+}
+
+.result-question {
+  display: grid;
+  gap: 10px;
+}
+
+.result-question h4 {
+  font-size: 1rem;
+}
+
+.result-row {
+  display: grid;
+  gap: 6px;
+}
+
+.result-label,
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #334155;
+  font-weight: 800;
+}
+
+.bar-track {
+  height: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e2e8f0;
+}
+
+.bar {
+  height: 100%;
+  min-width: 2px;
+  border-radius: inherit;
+  background: #0f766e;
+}
+
+.bar.correct {
+  background: #f59e0b;
+}
+
+.leaderboard {
+  display: grid;
+  gap: 8px;
+  padding-top: 6px;
+}
+
+.score-row {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.score-box {
+  display: grid;
+  place-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  padding: 22px;
+  border-radius: 8px;
+  background: #e6fffb;
+  text-align: center;
+}
+
+.score-box span {
+  color: #0f766e;
+  font-size: 3rem;
+  font-weight: 950;
+}
+
+.muted {
+  color: #64748b;
+  font-weight: 800;
+}
+
+.error,
+.success {
+  margin-top: 12px;
+  font-weight: 800;
+}
+
+.error {
+  color: #b91c1c;
+}
+
+.success {
+  color: #0f766e;
+}
+
+@media (max-width: 900px) {
+  .teacher-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .mode-switch {
+    width: 100%;
+  }
+
+  .mode-switch button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 560px) {
+  .app-shell {
+    width: min(100% - 20px, 1180px);
+    padding-top: 16px;
+  }
+
+  .editor,
+  .session-panel,
+  .student-card {
+    padding: 16px;
+  }
+
+  .section-title {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .segmented {
+    width: 100%;
+  }
+
+  .segmented button {
+    flex: 1;
+  }
+
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+}
