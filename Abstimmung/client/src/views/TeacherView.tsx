@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 import { ResultsView } from "../components/cards/ResultsView";
 import { Metric } from "../components/common/Metric";
-import { createSession, getResults, getSession, revealResults } from "../services/api";
+import { createSession, getResults, getSession, listSessions, revealResults } from "../services/api";
 import { type DraftQuestion, starterQuestions } from "../stores/starterQuestions";
 import type { ActivityType, PublicSession, Results } from "../types";
 import { getJoinUrl } from "../utils/sessionLinks";
@@ -15,13 +15,13 @@ export function TeacherView() {
   const [results, setResults] = useState<Results | null>(null);
   const [qrCode, setQrCode] = useState("");
   const [message, setMessage] = useState("");
+  const [savedSessions, setSavedSessions] = useState<PublicSession[]>([]);
 
   const joinUrl = session ? getJoinUrl(session.code) : "";
 
   useEffect(() => {
-    setQuestions(starterQuestions[activityType]);
-    setTitle(activityType === "quiz" ? "Kurzquiz" : "Exit Ticket");
-  }, [activityType]);
+    refreshSavedSessions();
+  }, []);
 
   useEffect(() => {
     if (!session) {
@@ -48,6 +48,16 @@ export function TeacherView() {
     setQuestions((current) => current.map((question, itemIndex) => (itemIndex === index ? { ...question, ...patch } : question)));
   }
 
+  function changeActivityType(nextType: ActivityType) {
+    setActivityType(nextType);
+    setQuestions(starterQuestions[nextType]);
+    setTitle(nextType === "quiz" ? "Kurzquiz" : "Exit Ticket");
+    setSession(null);
+    setResults(null);
+    setQrCode("");
+    setMessage("");
+  }
+
   function addQuestion() {
     setQuestions((current) => [
       ...current,
@@ -57,6 +67,30 @@ export function TeacherView() {
         correctOptionIndex: 0
       }
     ]);
+  }
+
+  async function refreshSavedSessions() {
+    try {
+      setSavedSessions(await listSessions());
+    } catch {
+      setSavedSessions([]);
+    }
+  }
+
+  function loadSavedSession(savedSession: PublicSession) {
+    setActivityType(savedSession.type);
+    setTitle(savedSession.title);
+    setQuestions(
+      savedSession.questions.map((question) => ({
+        text: question.text,
+        optionsText: question.options.join("\n"),
+        correctOptionIndex: question.correctOptionIndex ?? 0
+      }))
+    );
+    setSession(null);
+    setResults(null);
+    setQrCode("");
+    setMessage(`${savedSession.type === "quiz" ? "Quiz" : "Abstimmung"} "${savedSession.title}" wurde geladen.`);
   }
 
   async function handleCreate() {
@@ -71,6 +105,7 @@ export function TeacherView() {
       const created = await createSession({ title, type: activityType, questions: payload });
       setSession(created);
       setResults(await getResults(created.code));
+      await refreshSavedSessions();
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Die Session konnte nicht erstellt werden.");
     }
@@ -93,19 +128,44 @@ export function TeacherView() {
             <h2>Aktivität vorbereiten</h2>
           </div>
           <div className="segmented">
-            <button type="button" className={activityType === "poll" ? "active" : ""} onClick={() => setActivityType("poll")}>
+            <button type="button" className={activityType === "poll" ? "active" : ""} onClick={() => changeActivityType("poll")}>
               Abstimmung
             </button>
-            <button type="button" className={activityType === "quiz" ? "active" : ""} onClick={() => setActivityType("quiz")}>
+            <button type="button" className={activityType === "quiz" ? "active" : ""} onClick={() => changeActivityType("quiz")}>
               Quiz
             </button>
           </div>
         </div>
 
         <label className="field">
-          Titel
+          {activityType === "quiz" ? "Name des Quiz" : "Name der Abstimmung"}
           <input value={title} onChange={(event) => setTitle(event.target.value)} placeholder="z.B. Wiederholung Datenbanken" />
         </label>
+
+        {savedSessions.length > 0 && (
+          <section className="saved-library" aria-label="Gespeicherte Quizze und Abstimmungen">
+            <div className="saved-library-header">
+              <div>
+                <p className="eyebrow">JSON-Datenbank</p>
+                <h3>Gespeicherte Inhalte laden</h3>
+              </div>
+              <button type="button" className="secondary compact-button" onClick={refreshSavedSessions}>
+                Aktualisieren
+              </button>
+            </div>
+            <div className="saved-list">
+              {savedSessions.map((savedSession) => (
+                <button type="button" className="saved-item" key={savedSession.id} onClick={() => loadSavedSession(savedSession)}>
+                  <span>{savedSession.type === "quiz" ? "Quiz" : "Abstimmung"}</span>
+                  <strong>{savedSession.title}</strong>
+                  <small>
+                    {savedSession.questions.length} Fragen · Code {savedSession.code}
+                  </small>
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
 
         {questions.map((question, index) => (
           <div className="question-editor" key={index}>
@@ -140,10 +200,10 @@ export function TeacherView() {
             Frage hinzufügen
           </button>
           <button type="button" className="primary" onClick={handleCreate}>
-            QR-Code erzeugen
+            Speichern und QR-Code erzeugen
           </button>
         </div>
-        {message && <p className="error">{message}</p>}
+        {message && <p className={message.includes("geladen") ? "success" : "error"}>{message}</p>}
       </form>
 
       <aside className="panel session-panel">

@@ -34,6 +34,10 @@ export function createSession(input: {
   });
 }
 
+export function listSessions(): Promise<PublicSession[]> {
+  return request<PublicSession[]>("/api/sessions");
+}
+
 export function getSession(code: string): Promise<PublicSession> {
   return request<PublicSession>(`/api/sessions/${encodeURIComponent(code)}`);
 }

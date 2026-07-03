@@ -91,7 +91,14 @@ export function listSessions(): Session[] {
 
 export function toPublicSession(session: Session): PublicSession {
   return {
-    ...session,
+    id: session.id,
+    code: session.code,
+    title: session.title,
+    type: session.type,
+    questions: session.questions,
+    participants: session.participants,
+    isRevealed: session.isRevealed,
+    createdAt: session.createdAt,
     submittedParticipantIds: [...new Set(session.answers.map((answer) => answer.participantId))]
   };
 }
