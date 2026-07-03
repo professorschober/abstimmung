@@ -1,4 +1,4 @@
-import type { ActivityType, PublicSession, Results } from "./types";
+import type { ActivityType, PublicSession, Results } from "../types";
 
 type DraftQuestion = {
   text: string;

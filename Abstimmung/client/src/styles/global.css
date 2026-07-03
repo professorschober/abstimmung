@@ -1,6 +1,6 @@
 :root {
-  color: #172033;
-  background: #f7f8fb;
+  color: #24130f;
+  background: #fff7ed;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,9 +15,9 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    linear-gradient(135deg, rgba(15, 118, 110, 0.08), transparent 34%),
-    linear-gradient(315deg, rgba(245, 158, 11, 0.12), transparent 28%),
-    #f7f8fb;
+    radial-gradient(circle at 12% 8%, rgba(245, 158, 11, 0.32), transparent 28rem),
+    radial-gradient(circle at 88% 12%, rgba(220, 38, 38, 0.18), transparent 24rem),
+    linear-gradient(135deg, #fff7ed 0%, #ffedd5 46%, #fee2e2 100%);
 }
 
 button,
@@ -44,6 +44,11 @@ button {
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 24px;
+  padding: 18px;
+  border: 1px solid rgba(159, 18, 57, 0.18);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(255, 247, 237, 0.92), rgba(254, 243, 199, 0.9));
+  box-shadow: 0 18px 55px rgba(127, 29, 29, 0.12);
 }
 
 .topbar h1,
@@ -55,14 +60,15 @@ p {
 }
 
 .topbar h1 {
+  color: #7f1d1d;
   font-size: clamp(2rem, 4vw, 4rem);
   letter-spacing: 0;
 }
 
 .eyebrow {
-  color: #0f766e;
+  color: #c2410c;
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 850;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -72,9 +78,9 @@ p {
   display: inline-flex;
   gap: 4px;
   padding: 4px;
-  border: 1px solid #d7dde8;
+  border: 1px solid rgba(194, 65, 12, 0.22);
   border-radius: 8px;
-  background: #fff;
+  background: #fffaf2;
 }
 
 .mode-switch button,
@@ -82,15 +88,16 @@ p {
   min-height: 40px;
   padding: 0 14px;
   border-radius: 6px;
-  color: #475569;
+  color: #725247;
   background: transparent;
-  font-weight: 700;
+  font-weight: 760;
 }
 
 .mode-switch button.active,
 .segmented button.active {
   color: #fff;
-  background: #0f766e;
+  background: linear-gradient(135deg, #dc2626, #f97316);
+  box-shadow: 0 8px 18px rgba(220, 38, 38, 0.2);
 }
 
 .teacher-grid {
@@ -106,10 +113,10 @@ p {
 }
 
 .panel {
-  border: 1px solid #dce2ea;
+  border: 1px solid rgba(194, 65, 12, 0.18);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 16px 50px rgba(15, 23, 42, 0.08);
+  background: rgba(255, 250, 242, 0.94);
+  box-shadow: 0 18px 55px rgba(127, 29, 29, 0.12);
 }
 
 .editor,
@@ -133,7 +140,7 @@ p {
 .section-title h2,
 .student-card h2 {
   margin-top: 3px;
-  color: #111827;
+  color: #24130f;
   font-size: 1.45rem;
 }
 
@@ -141,7 +148,7 @@ p {
   display: grid;
   gap: 7px;
   margin-bottom: 14px;
-  color: #334155;
+  color: #4b2f28;
   font-size: 0.92rem;
   font-weight: 800;
 }
@@ -154,11 +161,11 @@ input,
 textarea,
 select {
   width: 100%;
-  border: 1px solid #cfd8e3;
+  border: 1px solid rgba(194, 65, 12, 0.24);
   border-radius: 8px;
   padding: 11px 12px;
-  color: #111827;
-  background: #fff;
+  color: #24130f;
+  background: #fffaf2;
 }
 
 textarea {
@@ -168,16 +175,16 @@ textarea {
 input:focus,
 textarea:focus,
 select:focus {
-  outline: 3px solid rgba(15, 118, 110, 0.18);
-  border-color: #0f766e;
+  outline: 3px solid rgba(249, 115, 22, 0.22);
+  border-color: #f97316;
 }
 
 .question-editor {
   margin: 16px 0;
   padding: 16px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(245, 158, 11, 0.32);
   border-radius: 8px;
-  background: #fbfdff;
+  background: linear-gradient(135deg, #fffaf2, #fff7ed);
 }
 
 .actions,
@@ -197,17 +204,19 @@ select:focus {
   min-height: 44px;
   padding: 0 16px;
   border-radius: 8px;
-  font-weight: 800;
+  font-weight: 850;
 }
 
 .primary {
   color: #fff;
-  background: #0f766e;
+  background: linear-gradient(135deg, #9f1239, #dc2626 48%, #f97316);
+  box-shadow: 0 12px 24px rgba(220, 38, 38, 0.22);
 }
 
 .secondary {
-  color: #0f766e;
-  background: #e6fffb;
+  color: #9f1239;
+  background: #fef3c7;
+  border: 1px solid rgba(245, 158, 11, 0.38);
 }
 
 .wide {
@@ -218,21 +227,26 @@ select:focus {
   display: grid;
   place-items: center;
   min-height: 286px;
-  border: 1px dashed #b8c5d6;
+  border: 1px dashed rgba(194, 65, 12, 0.4);
   border-radius: 8px;
-  background: #f8fafc;
+  background:
+    linear-gradient(45deg, rgba(254, 243, 199, 0.6) 25%, transparent 25%),
+    linear-gradient(135deg, #fffaf2, #ffedd5);
+  background-size: 22px 22px, auto;
 }
 
 .qr-box img {
   width: min(256px, 100%);
   height: auto;
+  border-radius: 8px;
+  box-shadow: 0 12px 24px rgba(127, 29, 29, 0.14);
 }
 
 .join-url {
   margin: 12px 0 16px;
   overflow-wrap: anywhere;
-  color: #475569;
-  font-weight: 700;
+  color: #725247;
+  font-weight: 760;
 }
 
 .metrics {
@@ -245,21 +259,22 @@ select:focus {
 .metric {
   padding: 12px;
   border-radius: 8px;
-  background: #f1f5f9;
+  background: #fef3c7;
+  border-left: 4px solid #f97316;
 }
 
 .metric span {
   display: block;
-  color: #64748b;
+  color: #9a3412;
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 850;
   text-transform: uppercase;
 }
 
 .metric strong {
   display: block;
   margin-top: 4px;
-  color: #111827;
+  color: #24130f;
   font-size: 1.25rem;
 }
 
@@ -268,7 +283,7 @@ select:focus {
   gap: 8px;
   min-height: 260px;
   align-content: center;
-  color: #475569;
+  color: #725247;
 }
 
 .answer-list {
@@ -285,7 +300,7 @@ select:focus {
 
 .answer-question legend {
   margin-bottom: 10px;
-  color: #111827;
+  color: #24130f;
   font-size: 1.05rem;
   font-weight: 900;
 }
@@ -296,15 +311,16 @@ select:focus {
   gap: 10px;
   margin-bottom: 8px;
   padding: 12px;
-  border: 1px solid #dce2ea;
+  border: 1px solid rgba(194, 65, 12, 0.22);
   border-radius: 8px;
-  background: #fff;
+  background: #fffaf2;
   font-weight: 750;
 }
 
 .answer-option input {
   width: 18px;
   height: 18px;
+  accent-color: #dc2626;
 }
 
 .results {
@@ -335,7 +351,7 @@ select:focus {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  color: #334155;
+  color: #4b2f28;
   font-weight: 800;
 }
 
@@ -343,18 +359,18 @@ select:focus {
   height: 12px;
   overflow: hidden;
   border-radius: 999px;
-  background: #e2e8f0;
+  background: #fed7aa;
 }
 
 .bar {
   height: 100%;
   min-width: 2px;
   border-radius: inherit;
-  background: #0f766e;
+  background: linear-gradient(90deg, #dc2626, #f97316);
 }
 
 .bar.correct {
-  background: #f59e0b;
+  background: linear-gradient(90deg, #f59e0b, #facc15);
 }
 
 .leaderboard {
@@ -366,7 +382,7 @@ select:focus {
 .score-row {
   padding: 10px 12px;
   border-radius: 8px;
-  background: #f8fafc;
+  background: #fff7ed;
 }
 
 .score-box {
@@ -376,18 +392,18 @@ select:focus {
   margin-top: 20px;
   padding: 22px;
   border-radius: 8px;
-  background: #e6fffb;
+  background: linear-gradient(135deg, #fef3c7, #fed7aa);
   text-align: center;
 }
 
 .score-box span {
-  color: #0f766e;
+  color: #9f1239;
   font-size: 3rem;
   font-weight: 950;
 }
 
 .muted {
-  color: #64748b;
+  color: #725247;
   font-weight: 800;
 }
 
@@ -402,7 +418,7 @@ select:focus {
 }
 
 .success {
-  color: #0f766e;
+  color: #c2410c;
 }
 
 @media (max-width: 900px) {
