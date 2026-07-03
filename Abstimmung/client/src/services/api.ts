@@ -6,8 +6,10 @@ type DraftQuestion = {
   correctOptionIndex?: number;
 };
 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") ?? "";
+
 async function request<T>(url: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(url, {
+  const response = await fetch(`${apiBaseUrl}${url}`, {
     headers: {
       "Content-Type": "application/json",
       ...init?.headers
